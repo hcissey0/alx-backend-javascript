@@ -1,4 +1,4 @@
-import { queryAPI, weakMap } from "./100-weak";
+import { queryAPI, weakMap } from './100-weak';
 
 const endpoint = { protocol: 'http', name: 'getUsers' };
 
