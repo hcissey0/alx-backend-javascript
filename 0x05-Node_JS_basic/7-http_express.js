@@ -35,7 +35,7 @@ app.get('/students', async (req, res) => {
     const studentsCount = await countStudents('database.csv');
     res.send(`This is the list of our students\n${studentsCount}`);
   } catch (err) {
-    res.send(`This is the list of our students\n${err.message}`);
+    res.status(404).send(`This is the list of our students\n${err.message}`);
   }
 });
 
