@@ -13,6 +13,6 @@ if (process.stdin.isTTY) {
     process.exit();
   });
   process.on('exit', () => {
-    process.stdout.write('This import software is now closing\n');
+    process.stdout.write('This important software is now closing\n');
   });
 }
