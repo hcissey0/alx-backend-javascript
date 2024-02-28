@@ -34,6 +34,7 @@ const app = http.createServer(async (req, res) => {
       const studentCount = await countStudents('database.csv');
       res.end(`This is the list of our students\n${studentCount}`);
     } catch (err) {
+      res.statusCode = 404;
       res.end(err.message);
     }
   } else {
