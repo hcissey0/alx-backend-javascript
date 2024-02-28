@@ -30,7 +30,6 @@ app.get('/', (req, res) => {
   res.send('Hello Holberton School!');
 });
 
-
 app.get('/students', async (req, res) => {
   try {
     const studentsCount = await countStudents('database.csv');
