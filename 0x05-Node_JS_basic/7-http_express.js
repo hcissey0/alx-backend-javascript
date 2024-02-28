@@ -1,4 +1,4 @@
-const http = require('http');
+const express = require('express');
 
 const fs = require('fs');
 
@@ -24,24 +24,24 @@ async function countStudents(path) {
   }
 }
 
-const app = http.createServer(async (req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  if (req.url === '/') {
-    res.end('Hello Holberton School!');
-  } else if (req.url === '/students') {
-    try {
-      const studentCount = await countStudents('database.csv');
-      res.end(`This is the list of our students\n${studentCount}`);
-    } catch (err) {
-      res.statusCode = 404;
-      res.end(`This is the list of our students\n${err.message}`);
-    }
-  } else {
-    res.end('Hello Holberton School!');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello Holberton School!');
+});
+
+
+app.get('/students', async (req, res) => {
+  try {
+    const studentsCount = await countStudents('database.csv');
+    res.send(`This is the list of our students\n${studentsCount}`);
+  } catch (err) {
+    res.send(`This is the list of our students\n${err.message}`);
   }
 });
 
-app.listen(1245);
+app.listen(1245, () => {
+  console.log('Server running on port 1245');
+});
 
 module.exports = app;
