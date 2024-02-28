@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { findSourceMap } = require('module');
 
 function countStudents(path) {
   let data;
