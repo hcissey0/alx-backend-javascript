@@ -35,7 +35,7 @@ const app = http.createServer(async (req, res) => {
       res.end(`This is the list of our students\n${studentCount}`);
     } catch (err) {
       res.statusCode = 404;
-      res.end(err.message);
+      res.end('Cannot load the database');
     }
   } else {
     res.end('Hello Holberton School!');
