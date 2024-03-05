@@ -39,3 +39,33 @@ describe('Test for the card id', () => {
     });
   });
 });
+
+describe('Test suite for login', () => {
+  it('should return welcome message for POST request', (done) => {
+    const opitons = {
+      url: 'http://localhost:7865/login',
+      method: 'POST',
+      json: {
+        userName: 'Betty'
+      }
+    };
+    request(opitons, (err, res, body) => {
+      expect(body).to.equal('Welcome Betty');
+      done();
+    });
+  });
+});
+
+describe('Testing available payments', () => {
+  it('should return payment methods', (done) => {
+    request('http://localhost:7865/available_payments', (err, res, body) => {
+      expect(JSON.parse(body)).to.deep.equal({
+        payment_methods: {
+          credit_cards: true,
+          paypal: false
+        }
+      });
+      done();
+    });
+  });
+});
