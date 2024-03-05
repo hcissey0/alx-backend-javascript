@@ -8,6 +8,7 @@ const sendPaymentRequestToApi = require('./3-payment');
 describe('sendPaymentRequestToApi', () => {
   let consoleLogSpy;
   let calculateNumberStub;
+
   beforeEach(() => {
     calculateNumberStub = sinon.stub(Utils, 'calculateNumber');
     calculateNumberStub.returns(10);
@@ -24,11 +25,9 @@ describe('sendPaymentRequestToApi', () => {
 
     sendPaymentRequestToApi(100, 20);
 
-    expect(calculateNumberStub.calledOnce).to.equal(true);
-    expect(calculateNumberStub.calledWith('SUM', 100, 20)).to.equal(true);
+    sinon.assert.calledWith(calculateNumberStub, 'SUM', 100, 20);
 
-    expect(consoleLogSpy.calledOnce).to.equal(true);
-    expect(consoleLogSpy.calledWith('The total is: 10')).to.equal(true);
+    sinon.assert.calledWith(consoleLogSpy, 'The total is: 10');
   });
 
 });
