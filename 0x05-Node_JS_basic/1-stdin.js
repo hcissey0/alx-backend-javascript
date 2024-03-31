@@ -5,7 +5,7 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-console.log('Welcome to Holberton School, what is your name?');
+process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
 rl.on('line', (input) => {
   const name = input;
@@ -14,6 +14,6 @@ rl.on('line', (input) => {
   } else {
     process.stdout.write('Your name is empty.');
   }
-  if (!process.stdin.isTTY) console.log('This important software is now closing');
+  if (!process.stdin.isTTY) process.stdout.write('This important software is now closing\n');
   rl.close();
 });
