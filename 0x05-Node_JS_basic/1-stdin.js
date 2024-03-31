@@ -8,11 +8,11 @@ const rl = readline.createInterface({
 console.log('Welcome to Holberton School, what is your name?');
 
 rl.on('line', (input) => {
-  const name = input.trim();
+  const name = input;
   if (name) {
-    console.log(`Your name is: ${name}`);
+    process.stdout.write(`Your name is: ${name}`);
   } else {
-    console.log('Your name is empty.');
+    process.stdout.write('Your name is empty.');
   }
   if (!process.stdin.isTTY) console.log('This important software is now closing');
   rl.close();
