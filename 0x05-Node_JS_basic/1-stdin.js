@@ -1,17 +1,15 @@
-const readline = require('readline');
+const pro = require('process');
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+const app = ((pro) => {
+  pro.stdin.setEncoding('utf-8');
+  pro.stdout.write('Welcome to Holberton School, what is your name?\n');
+  pro.stdin.on('readable', () => {
+    const chunk = pro.stdin.read();
+    if (chunk) { pro.stdout.write(`Your name is: ${chunk}`); }
+  });
+  pro.stdin.on('end', () => {
+    pro.stdout.write('This important software is now closing\n');
+  });
+})(pro);
 
-console.log('Welcome to Holberton School, what is your name?');
-
-rl.on('line', (input) => {
-  console.log(`Your name is: ${input}`);
-  rl.close();
-});
-
-rl.on('close', () => {
-  if (!process.stdin.isTTY) console.log('This important software is now closing');
-});
+module.exports = app;
