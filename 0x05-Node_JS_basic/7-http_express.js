@@ -1,7 +1,7 @@
 const exp = require('express');
 const fs = require('fs').promises;
 
-async function countStudents(path: string) {
+async function countStudents(path) {
   try {
     const content = await fs.readFile(path, 'utf8');
     const data = content.split('\n');
@@ -51,9 +51,9 @@ const app = exp();
 const port = 1245;
 const host = '0.0.0.0';
 
-app.get('/', (req: any, res: { send: (arg0: string) => void; }) => {
+app.get('/', (req, res) => {
   res.send('Hello Holberton School!');
-}).get('/students', (req: any, res: { send: (arg0: string) => void; }) => {
+}).get('/students', (req, res) => {
   let response = 'This is the list of our students\n';
   const data = countStudents(process.argv[2]);
   data.then((e) => {
