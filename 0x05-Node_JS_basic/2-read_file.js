@@ -1,56 +1,44 @@
 const fs = require('fs');
 
 function countStudents(path) {
-  let data;
   try {
-    data = fs.readFileSync(path, { encoding: 'utf-8'});
-  } catch (err) {
+    const content = fs.readFileSync(path, 'utf8');
+    const data = content.split('\n');
+    data.shift();
+    if (data[data.length - 1].length === 0) { data.pop(); }
+    console.log(`Number of students: ${data.length}`);
+    const fields = []; const names = [];
+    data.forEach((element) => {
+      const spliter = element.split(',');
+      names.push(spliter);
+      fields.push(spliter[spliter.length - 1]);
+    });
+    const first = fields[0]; const dictFields = {}; let count = 0;
+    fields.forEach((item) => {
+      if (item === first) {
+        count += 1;
+        dictFields[first] = count;
+      } else if (dictFields[item]) {
+        let tempCount = dictFields[item];
+        tempCount += 1;
+        dictFields[item] = tempCount;
+      } else {
+        dictFields[item] = 1;
+      }
+    });
+    const result = {};
+    Object.keys(dictFields).forEach((key) => {
+      names.forEach((rows) => {
+        if (rows.includes(key)) {
+          if (result[key]) {
+            result[key] += `, ${rows[0]}`;
+          } else { result[key] = `${rows[0]}`; }
+        }
+      });
+      console.log(`Number of students in ${key}: ${dictFields[key]}. List: ${result[key]}`);
+    });
+  } catch (error) {
     throw new Error('Cannot load the database');
-  }
-
-  let lines = data.split('\n');
-  lines = lines.filter((line) => line.length > 0);
-  const students = lines.slice(1).filter((line) => line.split(','));
-  console.log(`Number of students: ${students.length}`);
-
-  const fields = {};
-  for (const student of students) {
-    const field = student[3];
-    if (!fields[field]) fields[field] = [];
-    fields[field].push(student[0]);
-  }
-
-  for (const field in fields) {
-    if (Object.hasOwn(fields, field)) {
-        console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);`)
-    }
-  }
-}
-
-function countStudents(path) {
-  let data;
-  try {
-    data = fs.readFileSync(path, 'utf8');
-  } catch (err) {
-    throw new Error('Cannot load the database');
-  }
-
-  const lines = data.split('\n');
-  const students = lines.slice(1)
-    .filter((line) => line !== '')
-    .map((line) => line.split(','));
-
-  console.log(`Number of students: ${students.length}`);
-
-  const fields = {};
-  for (const student of students) {
-    const field = student[3];
-    if (!fields[field]) fields[field] = [];
-    fields[field].push(student[0]);
-  }
-
-  for (const field of fields) {
-    console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
   }
 }
 
