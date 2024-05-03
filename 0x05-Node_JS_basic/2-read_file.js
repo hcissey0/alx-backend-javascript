@@ -9,9 +9,9 @@ function countStudents(path) {
     console.log(`Number of students: ${data.length}`);
     const fields = []; const names = [];
     data.forEach((element) => {
-      const spliter = element.split(',');
-      names.push(spliter);
-      fields.push(spliter[spliter.length - 1]);
+      const splitter = element.split(',');
+      names.push(splitter);
+      fields.push(splitter[splitter.length - 1]);
     });
     const first = fields[0]; const dictFields = {}; let count = 0;
     fields.forEach((item) => {
